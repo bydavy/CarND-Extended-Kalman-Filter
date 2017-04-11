@@ -64,6 +64,14 @@ public:
    */
   void UpdateEKF(const Eigen::VectorXd &z);
 
+private:
+
+  /**
+   * Update the state by using Kalman filter equations
+   * As this method uses y and not z, it doesn't care if we use Kalman Filter or Extended Kalman Filter equations
+   * @param y State differential
+   */
+  void innerUpdate(const Eigen::VectorXd &y);
 };
 
 #endif /* KALMAN_FILTER_H_ */

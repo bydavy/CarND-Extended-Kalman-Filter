@@ -7,6 +7,7 @@
 #include "FusionEKF.h"
 #include "ground_truth_package.h"
 #include "measurement_package.h"
+#include "math.h"
 
 using namespace std;
 using Eigen::MatrixXd;
@@ -47,6 +48,14 @@ void check_files(ifstream& in_file, string& in_name,
     cerr << "Cannot open output file: " << out_name << endl;
     exit(EXIT_FAILURE);
   }
+}
+
+float wrap_to_pi(float x) {
+  if (fabs(x) <= pi()) {
+    return x;
+  }
+
+  return x - two_pi() * floor((x + pi()) / two_pi());
 }
 
 int main(int argc, char* argv[]) {
@@ -104,6 +113,7 @@ int main(int argc, char* argv[]) {
       iss >> ro;
       iss >> phi;
       iss >> ro_dot;
+      phi = wrap_to_pi(phi);
       meas_package.raw_measurements_ << ro, phi, ro_dot;
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
