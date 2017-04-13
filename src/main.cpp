@@ -51,11 +51,10 @@ void check_files(ifstream& in_file, string& in_name,
 }
 
 float wrap_to_pi(float x) {
-  if (fabs(x) <= pi()) {
-    return x;
-  }
+  while (x>M_PI) x-=2.*M_PI;
+  while (x<-M_PI) x+=2.*M_PI;
 
-  return x - two_pi() * floor((x + pi()) / two_pi());
+  return x;
 }
 
 int main(int argc, char* argv[]) {

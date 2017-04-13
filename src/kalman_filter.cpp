@@ -1,5 +1,4 @@
 #include "kalman_filter.h"
-#include "math.h"
 #include <iostream>
 
 using Eigen::MatrixXd;
@@ -33,7 +32,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   // Enforce phi normalization
-  if(z(1) > fabs(pi())) {
+  if(z(1) > fabs(M_PI)) {
     std::cout << "UpdateEKF () - Error - Phi needs to be normalized [-pi,pi]" << std::endl;
     return;
   }
